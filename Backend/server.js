@@ -18,8 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
     origin: [
-      "https://e-commerce-website-tau-pearl.vercel.app/",
-      "https://e-commerce-website-9fcj.vercel.app/",
+      "https://e-commerce-website-tau-pearl.vercel.app",
+      "https://e-commerce-website-9fcj.vercel.app",
       "http://localhost:5173",
       "http://localhost:5174"
     ],
