@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+a.active {
+    background-color: #ffe1ef;
+    border-color: #e8519a;
+
+}
+
+* {
+    font-family: 'Gilroy';
+}
