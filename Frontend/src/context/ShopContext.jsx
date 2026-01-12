@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext();
-export const baseurl = import.meta.env.VITE_SERVER_URL || "http://localhost:4000/";
+export const baseurl = (import.meta.env.VITE_SERVER_URL || "http://localhost:4000").replace(/\/+$/,'') + '/';
 
 const ShopContextProvider = (props) => {
   const navigate = useNavigate();
