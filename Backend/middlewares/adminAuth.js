@@ -17,11 +17,7 @@ const adminAuth = (req, res, next) => {
     }
 
     const decoded_token = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(decoded_token);
-    if (
-      decoded_token !==
-      process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD
-    ) {
+    if (!decoded_token || decoded_token.admin !== true || decoded_token.email !== process.env.ADMIN_EMAIL) {
       return res.status(401).json({ message: 'Not authorized, Login Again' });
     }
 

@@ -23,8 +23,10 @@ const userRegister =async (req,res) => {
     });
     await user.save();
     if(user._id) {
+        if(!process.env.JWT_SECRET) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Server misconfigured: JWT_SECRET is not set' });
+        }
         let token = jwt.sign({id:user._id}, process.env.JWT_SECRET, {expiresIn: '7d' });
-        console.log(token);
         res.status(httpStatus.OK).json({success: true, message: 'User successfully registered',token});
     } else {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json({success: false, message: 'Something went wrong!'}); 
@@ -45,6 +47,9 @@ const userLogin = async  (req,res) => {
     if(!isMatch) {
         return res.status(httpStatus.UNAUTHORIZED).json({error: 'password is wrong'})
     }
+    if(!process.env.JWT_SECRET) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Server misconfigured: JWT_SECRET is not set' });
+    }
     let token=jwt.sign( {id: isFound._id}, process.env.JWT_SECRET, {expiresIn: '7d' });
     res.status(httpStatus.OK).json({success: true, message: 'User successfully logged in', token})
 }
@@ -54,9 +59,12 @@ const adminLogin =async (req,res) => {
     try {
         let { email, password } = req.body;
         // console.log(req.body);
-        let token = jwt.sign(email+password, process.env.JWT_SECRET);
-        // console.log(token);
-        res.status(httpStatus.OK).json({token: token});
+        if(!process.env.JWT_SECRET) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Server misconfigured: JWT_SECRET is not set' });
+        }
+        const payload = { email, admin: true };
+        let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.status(httpStatus.OK).json({ success: true, message: 'Admin logged in', token });
     } catch (err) {
         console.log(err);
     }

@@ -8,7 +8,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export const baseUrl = import.meta.env.VITE_SERVER_URL;
+export const baseUrl = (import.meta.env.VITE_SERVER_URL || "http://localhost:4000").replace(/\/+$/,'') + '/';
 export const currency = '₹'; 
 
 

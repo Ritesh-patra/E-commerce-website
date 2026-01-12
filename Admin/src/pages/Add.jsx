@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/admin_assets/assets";
 import axios from "axios";
+import { baseUrl } from "../App";
 import { toast } from "react-toastify";
 
 function Add() {
@@ -82,7 +83,7 @@ function Add() {
     console.log("formData",formData);
     try {
       let res = await axios.post(
-        import.meta.env.VITE_SERVER_URL + "api/product/add",
+        baseUrl + "api/product/add",
         formData,
         {
           headers: {
@@ -95,7 +96,7 @@ function Add() {
       if(res.data.success) {
         toast.success(res.data.message);
 
-        setImage1()
+        setImage1("")
         setImage2("");
         setImage3("");
         setImage4("");

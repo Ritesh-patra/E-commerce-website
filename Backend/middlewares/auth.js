@@ -1,4 +1,4 @@
-import htttpStatus from "http-status"
+import httpStatus from "http-status"
 import jwt from "jsonwebtoken"
 
 export const verifyAdmin = (req,res,next) => {
@@ -8,7 +8,7 @@ export const verifyAdmin = (req,res,next) => {
     if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
         return next();
     }
-    res.status(htttpStatus.FORBIDDEN).json({ error: "Access Denied"});
+    res.status(httpStatus.FORBIDDEN).json({ error: "Access Denied"});
 }
 
 export const verifyTokken = (req,res,next) => {
